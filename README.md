@@ -36,4 +36,4 @@ Hiki2MediaWiki Auto
 
 4. 以下を実行する。
 
-        $ ./step1.sh data
+        $ ./auto-convert.sh data
