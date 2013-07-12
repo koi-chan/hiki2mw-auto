@@ -1,0 +1,10 @@
+# encoding: utf-8
+
+# 自動投稿先の MediaWiki の URL
+@mediawiki_url = "http://example.com/wiki/"
+
+# ボット用アカウントのユーザー名
+@username = "Hiki2MediaWiki"
+
+# ボット用アカウントのパスワード
+@password = "pa$$word"
