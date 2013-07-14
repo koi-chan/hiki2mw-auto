@@ -48,6 +48,8 @@ info.each do |k, v|
   end
 
   valid_title = !(title == "." || title == ".." ||
+                  %r!\A\.?\./! =~ title || %r!/\.?\./! =~ title ||
+                  %r!/\.?\.\Z! =~ title ||
                   %r![#<>\[\]|{}/:%+?&]|~{3,}! =~ title)
   if valid_title
     pages_valid_title[k] = title
