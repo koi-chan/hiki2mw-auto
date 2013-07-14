@@ -60,20 +60,20 @@ end
 
 # 出力
 unless pages_valid_title.empty?
-  filename_valid_title = File.join(pages_info_dir, "pages_valid-title.csv")
+  filename_valid_title = File.join(pages_info_dir, "pages-valid-title.csv")
   CSV.open(filename_valid_title, "w") do |csv|
     csv << [:Filename, :Title]
     pages_valid_title.each {|k, v| csv << [k, v]}
   end
   puts "Exported #{filename_valid_title}"
 
-  filename_to_post = File.join(config_dir, "pages_to-post.csv")
+  filename_to_post = File.join(config_dir, "pages-to-post.csv")
   FileUtils.cp(filename_valid_title, filename_to_post)
   puts "Copied #{filename_valid_title} to #{filename_to_post}"
 end
 
 unless pages_invalid_title.empty?
-  filename_invalid_title = File.join(pages_info_dir, "pages_invalid-title.csv")
+  filename_invalid_title = File.join(pages_info_dir, "pages-invalid-title.csv")
   CSV.open(filename_invalid_title, "w") do |csv|
     csv << [:Filename, :Title]
     pages_invalid_title.each {|k, v| csv << [k, v]}

@@ -29,7 +29,7 @@ hiki2mw_dir = File.join(data_dir, "hiki2mw")
 text_mw_dir = File.join(hiki2mw_dir, "text-mw")
 config_dir = File.join(hiki2mw_dir, "config")
 filename_config = File.join(config_dir, "auto-post.conf")
-filename_pages = File.join(config_dir, "pages_to-post.csv")
+filename_pages = File.join(config_dir, "pages-to-post.csv")
 [filename_config, filename_pages].each do |fn|
   die "#{__FILE__}: No such file - #{fn}" unless File.exist?(fn)
 end
@@ -59,7 +59,7 @@ pages.each do |row|
     puts "Posted #{title}"
     sleep config.wait_time
   rescue MediaWiki::Exception
-    STDERR.puts "#{__FILE__}: Post failed - #{title}"
+    puts "Post failed: #{title}"
     sleep config.wait_time
   rescue => e
     STDERR.puts "#{__FILE__}: #{e}"
