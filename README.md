@@ -17,13 +17,17 @@ Hiki2MediaWiki Auto
 
 インストール
 ------------
-1. 適当なディレクトリで以下を実行し、ダウンロードします。
+1. 以下を実行して、mediawiki-gateway をインストールします。
+
+        $ gem install mediawiki-gateway
+
+2. 適当なディレクトリで以下を実行し、ダウンロードします。
 
         $ git clone https://github.com/ochaochaocha3/hiki2mw-auto.git
 
-2. 生成された hiki2mw-auto ディレクトリに移動します。
+3. 生成された hiki2mw-auto ディレクトリに移動します。
 
-3. 以下を実行して、Hiki2MediaWiki Ruby 版をダウンロードします。
+4. 以下を実行して、Hiki2MediaWiki Ruby 版をダウンロードします。
 
         $ git clone https://github.com/ochaochaocha3/hiki2mw-ruby.git lib/hiki2mw-ruby
 
