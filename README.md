@@ -30,7 +30,6 @@ Hiki2MediaWiki Auto
 使い方：自動変換
 ----------------
 1. 移植したい Hiki の文字コードを調べ、lib/info2csv.rb 冒頭の `HIKI_ENCODING` をそれに合わせます。
-
     * EUC-JP（Hiki 1.0.0 未満；デフォルト）：`HIKI_ENCODING = Encoding::EUCJP`
     * UTF-8（Hiki 1.0.0 以降）：`HIKI_ENCODING = Encoding::UTF_8`
 
