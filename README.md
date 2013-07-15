@@ -114,7 +114,7 @@ DATA\_DIR/hiki2mw/config/pages-to-post.csv を編集します。自動変換直�
 
 使い方：「移植済み」表示
 ------------------------
-移植元の Hiki 上のページに「移植済み」表示を自動で貼り付けます。
+移植元の Hiki 上のページに「移植済み」表示を自動で貼り付けます。自動投稿の際に設定した DATA\_DIR/hiki2mw/config/auto-post.conf と DATA\_DIR/hiki2mw/config/pages-to-post.csv を利用します。
 
 1. Hiki の上部からアクセスできる「管理」ページで「XML-RPC」を選択し、「XML-RPC インタフェイス」を有効にします（デフォルトは有効）。
 
