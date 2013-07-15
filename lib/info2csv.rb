@@ -32,7 +32,7 @@ rescue => e
 end
 
 # info.db の読み込み
-info = eval(File.open(info_db, "r") {|f| f.read})
+info = eval(File.read(info_db))
 
 # タイトルの妥当性で分ける
 pages_valid_title = {}

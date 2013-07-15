@@ -53,7 +53,7 @@ pages.each do |row|
   filename = File.join(text_mw_dir, row[0])
   title = row[1]
   begin
-    source_mw = File.open(filename, "r") {|f| f.read}
+    source_mw = File.read(filename)
     mw.create(title, source_mw, :summary => "Hiki からの自動変換")
 
     puts "Posted #{title}"

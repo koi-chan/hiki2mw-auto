@@ -42,11 +42,11 @@ Dir.glob(File.join(text_dir, "*")) do |filename|
   filename_links = File.join(links_dir, File.basename(filename) + ".csv")
 
   # 変換
-  converter.source = File.open(filename, "r") {|f| f.read}.toutf8
+  converter.source = File.read(filename).toutf8
   source_mw = converter.convert
 
   # 変換結果を出力
-  File.open(filename_mw, "w") {|f| f.print source_mw}
+  File.write(filename_mw, source_mw)
   puts "Exported #{filename_mw}"
 
   # リンク解析
