@@ -5,30 +5,19 @@ require "kconv"
 require "csv"
 require_relative "hiki2mw-ruby/hiki2mw/converter"
 require_relative "hiki2mw-ruby/hiki2mw/link-analyzer"
-
-# エラーメッセージを標準エラー出力に出力して終了する
-def die(message)
-  STDERR.puts message
-  abort
-end
-
-# 引数チェック
-die "Usage: ruby #{__FILE__} HIKI_DATA_DIR" unless ARGV.length == 1
+require_relative "hiki2mw-auto/common"
 
 # ディレクトリの準備
-data_dir = ARGV[0]
-text_dir = File.join(data_dir, "text")
-die "#{__FILE__}: No such directory - #{text_dir}" unless Dir.exist?(text_dir)
+unless Dir.exist?(Hiki2MW::Auto::TEXT_DIR)
+  Hiki2MW::Auto.die "No such directory - #{Hiki2MW::Auto::TEXT_DIR}"
+end
 
-hiki2mw_dir = File.join(data_dir, "hiki2mw")
-text_mw_dir = File.join(hiki2mw_dir, "text-mw")
-links_dir = File.join(hiki2mw_dir, "links")
 begin
-  [text_mw_dir, links_dir].each do |dir|
-    FileUtils.mkdir_p dir unless Dir.exist? dir
+  [Hiki2MW::Auto::TEXT_MW_DIR, Hiki2MW::Auto::LINKS_DIR].each do |dir|
+    FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
   end
 rescue => e
-  die "#{__FILE__}: #{e}"
+  Hiki2MW::Auto.die e
 end
 
 # 変換・リンク解析
@@ -37,9 +26,10 @@ link_analyzer = Hiki2MW::LinkAnalyzer.new(
   "", Hiki2MW::LinkAnalyzer::MODE_MEDIAWIKI
 )
 
-Dir.glob(File.join(text_dir, "*")) do |filename|
-  filename_mw = File.join(text_mw_dir, File.basename(filename))
-  filename_links = File.join(links_dir, File.basename(filename) + ".csv")
+Dir.glob(File.join(Hiki2MW::Auto::TEXT_DIR, "*")) do |filename|
+  filename_mw = File.join(Hiki2MW::Auto::TEXT_MW_DIR, File.basename(filename))
+  filename_links = File.join(Hiki2MW::Auto::LINKS_DIR,
+                             File.basename(filename) + ".csv")
 
   # 変換
   converter.source = File.read(filename).toutf8

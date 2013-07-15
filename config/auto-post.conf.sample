@@ -1,7 +1,15 @@
 # encoding: utf-8
 
+# 移植元の Hiki の URI
+@hiki_uri = "http://example.com/hiki/"
+
+# 移植元の Hiki の文字コード
+# 1.0.0 未満：@hiki_encoding = Encoding::EUCJP
+# 1.0.0 以上：@hiki_encoding = Encoding::UTF_8
+@hiki_encoding = Encoding::EUCJP
+
 # 自動投稿先の MediaWiki の URL
-@mediawiki_url = "http://example.com/wiki/"
+@mediawiki_uri = "http://example.com/mediawiki/"
 
 # ボット用アカウントのユーザー名
 @username = "Hiki2MediaWiki"

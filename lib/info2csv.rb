@@ -2,37 +2,26 @@
 
 require "csv"
 require "fileutils"
+require_relative "hiki2mw-auto/common"
 
 HIKI_ENCODING = Encoding::EUCJP
 OUTPUT_ENCODING = Encoding::UTF_8
 
-# エラーメッセージを標準エラー出力に出力して終了する
-def die(message)
-  STDERR.puts message
-  abort
+# ディレクトリ・ファイルの準備
+unless File.exist?(Hiki2MW::Auto::INFO_DB)
+  Hiki2MW::Auto.die "No such file - #{Hiki2MW::Auto::INFO_DB}"
 end
 
-# 引数チェック
-die "Usage: ruby #{__FILE__} HIKI_DATA_DIR" unless ARGV.length == 1
-
-# ディレクトリ・ファイルの準備
-data_dir = ARGV[0]
-info_db = File.join(data_dir, "info.db")
-die "#{__FILE__}: No such file - #{info_db}" unless File.exist?(info_db)
-
-hiki2mw_dir = File.join(data_dir, "hiki2mw")
-pages_info_dir = File.join(hiki2mw_dir, "pages-info")
-config_dir = File.join(hiki2mw_dir, "config")
 begin
-  [pages_info_dir, config_dir].each do |dir|
-    FileUtils.mkdir_p dir unless Dir.exist? dir
+  [Hiki2MW::Auto::PAGES_INFO_DIR, Hiki2MW::Auto::CONFIG_DIR].each do |dir|
+    FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
   end
 rescue => e
-  die "#{__FILE__}: #{e}"
+  Hiki2MW::Auto.die e
 end
 
 # info.db の読み込み
-info = eval(File.read(info_db))
+info = eval(File.read(Hiki2MW::Auto::INFO_DB))
 
 # タイトルの妥当性で分ける
 pages_valid_title = {}
@@ -60,20 +49,21 @@ end
 
 # 出力
 unless pages_valid_title.empty?
-  filename_valid_title = File.join(pages_info_dir, "pages-valid-title.csv")
+  filename_valid_title = File.join(Hiki2MW::Auto::PAGES_INFO_DIR,
+                                   "pages-valid-title.csv")
   CSV.open(filename_valid_title, "w") do |csv|
     csv << [:Filename, :Title]
     pages_valid_title.each {|k, v| csv << [k, v]}
   end
   puts "Exported #{filename_valid_title}"
 
-  filename_to_post = File.join(config_dir, "pages-to-post.csv")
-  FileUtils.cp(filename_valid_title, filename_to_post)
-  puts "Copied #{filename_valid_title} to #{filename_to_post}"
+  FileUtils.cp(filename_valid_title, Hiki2MW::Auto::PAGES_TO_POST)
+  puts "Copied #{filename_valid_title} to #{Hiki2MW::Auto::PAGES_TO_POST}"
 end
 
 unless pages_invalid_title.empty?
-  filename_invalid_title = File.join(pages_info_dir, "pages-invalid-title.csv")
+  filename_invalid_title = File.join(Hiki2MW::Auto::PAGES_INFO_DIR,
+                                     "pages-invalid-title.csv")
   CSV.open(filename_invalid_title, "w") do |csv|
     csv << [:Filename, :Title]
     pages_invalid_title.each {|k, v| csv << [k, v]}
