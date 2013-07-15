@@ -54,7 +54,7 @@ pages.each do |row|
   title = row[1]
   begin
     source_mw = File.read(filename)
-    mw.create(title, source_mw, :summary => "Hiki からの自動変換")
+    mw.edit(title, source_mw, :summary => "Hiki からの自動変換")
 
     puts "Posted #{title}"
     sleep config.wait_time
