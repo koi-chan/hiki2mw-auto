@@ -7,6 +7,7 @@ Hiki2MediaWiki Auto
 * Hiki ソースから MediaWiki ソースへの変換
 * リンク切れの可能性があるリンクの報告
 * ソースを変換したページの MediaWiki への自動投稿
+* 移植したページの「移植済み」表示
 
 動作環境
 --------
@@ -75,7 +76,7 @@ Hiki2MediaWiki Auto
 ### 自動投稿の設定ファイルの編集
 1. DATA_DIR/hiki2mw/config/auto-post.conf.sample を auto-post.conf にリネームします。
 
-2. auto-post.conf を投稿先の MediaWiki に合わせて編集します。
+2. auto-post.conf を移植元の Hiki、移植先の MediaWiki に合わせて編集します。
 
 ### 自動投稿するページの一覧の編集
 DATA\_DIR/hiki2mw/config/pages-to-post.csv を編集します。自動変換直後の内容は DATA\_DIR/hiki2mw/pages-info/pages-valid-title.csv と同じです。書式は
@@ -110,3 +111,14 @@ DATA\_DIR/hiki2mw/config/pages-to-post.csv を編集します。自動変換直�
 自動投稿後の修正
 ----------------
 投稿した各ページについて、DATA_DIR/links/ 以下のリンク解析結果を見ながらリンクを修正したり、カテゴリ・ソートキーを設定します。
+
+使い方：「移植済み」表示
+------------------------
+移植元の Hiki 上のページに「移植済み」表示を自動で貼り付けます。
+
+1. Hiki の上部からアクセスできる「管理」ページで「XML-RPC」を選択し、「XML-RPC インタフェイス」を有効にします（デフォルトは有効）。
+
+2. hiki2mw-auto ディレクトリに移動して、以下を実行します。
+
+    $ ruby show-moved.rb DATA_DIR
+    $ ruby show-moved.rb DATA_DIR | tee show-moved.log（ログを記録する場合）
