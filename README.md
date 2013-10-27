@@ -26,7 +26,7 @@ Hiki2MediaWiki Auto
 
 3. 以下を実行して、Hiki2MediaWiki Ruby 版をダウンロードします。
 
-        $ git clone https://github.com/ochaochaocha3/hiki2mw-ruby.git lib/hiki2mw-ruby
+        $ git submodule update --init
 
 4. 以下を実行して、gem パッケージをインストールします。
 

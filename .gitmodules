@@ -1,0 +1,3 @@
+[submodule "lib/hiki2mw-ruby"]
+	path = lib/hiki2mw-ruby
+	url = https://github.com/ochaochaocha3/hiki2mw-ruby.git
