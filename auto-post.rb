@@ -2,6 +2,7 @@
 
 require "rubygems"
 require 'bundler/setup'
+require 'mediawiki_api'
 
 require "csv"
 require "uri"
@@ -18,9 +19,10 @@ pages = CSV.read(Hiki2MW::Auto::PAGES_TO_POST, :headers => :first_row)
 # MediaWiki へのログイン
 begin
   api_uri = URI.join(config.mediawiki_uri, "api.php").to_s
-  mw = MediaWikiApi::Client.new(api_uri)
+  mw = MediawikiApi::Client.new(api_uri)
   mw.log_in(config.username, config.password)
-rescue MediaWikiApi::ApiError::LoginError => e
+  puts('login complete')
+rescue MediawikiApi::LoginError => e
   Hiki2MW::Auto.die "Login failed: #{e}"
 rescue => e
   Hiki2MW::Auto.die e
@@ -32,11 +34,11 @@ pages.each do |row|
   title = row[1]
   begin
     source_mw = File.read(filename)
-    mw.edit(title, source_mw, :summary => "Hiki からの自動変換")
+    mw.edit(title: title, text: source_mw, summary: "Hiki からの自動変換")
 
     puts "Posted #{title}"
     sleep config.wait_time
-  rescue MediaWiki::Exception
+  rescue MediawikiApi::ApiError
     puts "Post failed: #{title}"
     sleep config.wait_time
   rescue => e

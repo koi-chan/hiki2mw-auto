@@ -40,6 +40,7 @@ info.each do |k, v|
                   %r!\A\.?\./! =~ title || %r!/\.?\./! =~ title ||
                   %r!/\.?\.\Z! =~ title ||
                   %r![#<>\[\]|{}/:%+?&]|~{3,}! =~ title)
+  title = "#{Hiki2MW::Auto::SITE_NAME}/#{title}"
   if valid_title
     pages_valid_title[k] = title
   else

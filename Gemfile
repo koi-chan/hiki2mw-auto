@@ -8,3 +8,4 @@ source "https://rubygems.org"
 #end
 
 gem 'mediawiki_api'
+gem 'csv'

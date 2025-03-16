@@ -1,14 +1,15 @@
 # encoding: utf-8
 
 # 引数チェック
-unless ARGV.length == 1
-  STDERR.puts "Usage: ruby #{$0} HIKI_DATA_DIR"
+unless ARGV.length == 2
+  STDERR.puts "Usage: ruby #{$0} HIKI_DATA_DIR SITE_NAME"
   abort
 end
 
 module Hiki2MW
   module Auto
     DATA_DIR = ARGV[0]
+    SITE_NAME = ARGV[1]
     INFO_DB = File.join(DATA_DIR, "info.db")
     TEXT_DIR = File.join(DATA_DIR, "text")
 
