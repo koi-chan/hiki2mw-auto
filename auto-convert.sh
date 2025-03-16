@@ -10,12 +10,14 @@ if [ "${dir}" != "" ]; then
         ruby lib/auto-convert.rb "${dir}" "${site_name}"
 
         echo
-        echo "[link for sub page]"
+        echo "[Rewrite links for sub page / Add category]"
         pwd=$(pwd)
         cd ${dir}/hiki2mw/text-mw
         for f in $(ls -1)
         do
+                echo $f
                 sed -i -r "s/\[\[([^]]+)\]\]/[[${sitename}\/\1|\1]]/g" $f
+                echo "[[Category:${sitename}]]" >> $f
         done
         cd $pwd
 
