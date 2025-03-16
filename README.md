@@ -105,8 +105,8 @@ DATA\_DIR/hiki2mw/config/pages-to-post.csv を編集します。自動変換直�
 ----------------
 設定が完了したら、hiki2mw-auto ディレクトリに移動して以下を実行します。
 
-    $ ruby auto-convert.rb DATA_DIR
-    $ ruby auto-convert.rb DATA_DIR | tee auto-convert.log（ログを記録する場合）
+    $ ruby auto-post.rb DATA_DIR
+    $ ruby auto-post.rb DATA_DIR | tee auto-post.log（ログを記録する場合）
 
 自動投稿後の修正
 ----------------

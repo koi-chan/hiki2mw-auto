@@ -1,7 +1,8 @@
 # encoding: utf-8
 
 require "rubygems"
-require "media_wiki"
+require 'bundler/setup'
+
 require "csv"
 require "uri"
 require_relative "lib/hiki2mw-auto/common"
@@ -17,10 +18,10 @@ pages = CSV.read(Hiki2MW::Auto::PAGES_TO_POST, :headers => :first_row)
 # MediaWiki へのログイン
 begin
   api_uri = URI.join(config.mediawiki_uri, "api.php").to_s
-  mw = MediaWiki::Gateway.new(api_uri, :bot => true)
-  mw.login(config.username, config.password)
-rescue MediaWiki::Exception
-  Hiki2MW::Auto.die "Login failed"
+  mw = MediaWikiApi::Client.new(api_uri)
+  mw.log_in(config.username, config.password)
+rescue MediaWikiApi::ApiError::LoginError => e
+  Hiki2MW::Auto.die "Login failed: #{e}"
 rescue => e
   Hiki2MW::Auto.die e
 end
