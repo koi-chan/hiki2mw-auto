@@ -17,7 +17,8 @@ if [ "${dir}" != "" ]; then
         do
                 echo $f
                 sed -i -r "s/\[\[([^]]+)\]\]/[[${sitename}\/\1|\1]]/g" $f
-                echo "[[Category:${sitename}]]" >> $f
+                echo >> $f
+                echo "[[Category:${site_name}]]" >> $f
         done
         cd $pwd
 
