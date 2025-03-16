@@ -8,10 +8,12 @@ if [ "${dir}" != "" ]; then
         echo "[Auto convert]"
         ruby lib/auto-convert.rb "${dir}"
 
-        echo "\n[Extract page title from info.db]"
+	echo
+        echo "[Extract page title from info.db]"
         ruby lib/info2csv.rb "${dir}"
 
-        echo "\n[Copy auto post config]"
+	echo
+        echo "[Copy auto post config]"
         ap_conf_sample="config/auto-post.conf.sample"
         config_dir="${dir}/hiki2mw/config/"
         cp "${ap_conf_sample}" "${config_dir}" && \
